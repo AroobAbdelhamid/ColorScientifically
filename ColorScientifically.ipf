@@ -1,7 +1,7 @@
 #pragma TextEncoding = "Windows-1252"
 #pragma rtGlobals=3		// Use modern global access method and strict wave access.
 
-//Version 1.3
+//Version 1.4
 //based on: Crameri, F.; Shephard, G. E.; Heron, P. J. The Misuse of Colour in Science Communication. Nat. Commun. 2020, 11 (1), 5444.
 //written by: Aroob S Abdelhamid 2.12.21
 
