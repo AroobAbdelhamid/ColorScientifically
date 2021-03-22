@@ -107,6 +107,14 @@ Function ColorGraph(WinNm)
 	variable itrccol=0
 	For(itrc=sttrc; itrc<endtrc; itrc+=1)
 		string currtrc = stringfromlist(abs(itrc), listtrcs); variable trcnum = mod(separat*itrccol,nrows); itrccol+=1
+
+		// $$AB 210322: treat PMFfactors coloring differently (always use first x colors and not space them out)
+		SVAR colorMapStr=root:ColorScientifically:colorMapStr
+		IF (GrepString(colorMapStr,"(?i)PMFfactors"))
+			trcnum=itrc	// use running index
+		ENDIF
+		//
+		
 		Modifygraph/Z/W=$WinNm rgb($currtrc)=(RedGreenBlue[trcnum][0], RedGreenBlue[trcnum][1], RedGreenBlue[trcnum][2]) //change the color
 	EndFor
 		
@@ -222,6 +230,7 @@ Function/S ColorList()
 	listofcolors+= "turku (black/pink);"
 	listofcolors+= "vik (blue/white/red);"
 	listofcolors+= "vikO (blue/peach/red);"
+	listofcolors+= "PMFfactors (discrete colors);"
 	return listofcolors
 End
 
@@ -360,6 +369,11 @@ Function RedGreenBlueFn(colormap)
 		RedGreenBlue[][0]= {79,71,63,56,51,55,69,90,117,147,174,198,213,217,215,208,197,181,163,141,122,108,97,88,80}
 		RedGreenBlue[][1]= {26,33,44,59,77,95,117,137,158,177,189,195,190,180,163,145,124,100,77,55,37,27,22,22,25}
 		RedGreenBlue[][2]= {61,75,91,110,128,144,161,175,188,197,200,194,179,159,135,111,86,63,45,33,30,33,39,48,60}
+		break
+	case 26:	//PMFfactors // descrete colors for PMF factors ($$AB 210322)
+		RedGreenBlue[0][0]= {0,255,0,0,153,153,255,0,0,255,255,0,102,172.191,255,153,191.296,102.767,191.249,255,0.00389105,153,0,0,0}
+		RedGreenBlue[0][1]= {0,0,153,0,0.00389105,153,63.7549,255,255,170,255,190.759,102,114.755,212.479,50.9767,255,0.00389105,206.829,191.249,135.475,152.992,0,0,0}
+		RedGreenBlue[0][2]= {0,0,0,255,122.401,153,216.922,0,255,0,0,255,102,229.502,127.502,0.00389105,127.502,204,255,242.249,204,0.00389105,0,0,0}		
 		break
 	Endswitch
 	
